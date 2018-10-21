@@ -41,9 +41,6 @@ def get_immediate_subdirectories(a_dir):
 facedir = 'Cropped_Face'
 FaceMask = "FaceMask"
 BinaryMask = "BinaryMask" 
-BLACK = [0,0,0]
-drain =  '/home/pranav/Desktop/face/mask32/'
-facet = 'face_mask'
 if not os.path.exists(BinaryMask):
     os.makedirs(BinaryMask)
 
