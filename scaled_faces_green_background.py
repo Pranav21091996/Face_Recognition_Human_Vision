@@ -1,5 +1,3 @@
-#Code to superimpose face mask on other datasets
-
 import numpy as np
 import os
 import matplotlib.pyplot as plt
