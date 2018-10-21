@@ -13,3 +13,10 @@ To get the top 5 test accuracy for the dataset specified using Eccentricity CNN 
 "testData_directory2","testData_directory3","testData_directory4","testData_directory5" contains differently scaled and shifted  version of the faces on which the trained model is tested.
 
 The final result is the top 5 test accuracy for each of the different version of faces.
+
+## face_segmentation.py
+To get the binary mask of the face and the background as well as the segmented face from the background. Run the code using command python3 face_segmentation.py. Before running the code specify the name of the directory containing the original cropped faces of each actor in the code of the variable facedir as given
+- facedir = 'Cropped_Face'
+
+The code will create two new directories containing the binary mask as well as the segmented mask for each actor.
+For Segmentation an extra file needs to be imported "FCN8s_keras" which contains the pretrained network for segmenting the faces.The pretrained weights can be downloaded from this [link](https://drive.google.com/ucid=1alyR6uv4CHt1WhykiQIiK5MZir7HSOUU&export=download) 
