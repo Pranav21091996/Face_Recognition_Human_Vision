@@ -15,6 +15,7 @@ CroppedFolder1 = "placemaskleft"
 CroppedFolder2 = "placemaskright"
 CroppedFolder3 = "placemaskup"
 CroppedFolder4 = "placemaskdown"
+shift = 16
 
 folder = [CroppedFolder1,CroppedFolder2,CroppedFolder3,CroppedFolder4]
 for CroppedFolder in folder:
@@ -22,10 +23,10 @@ for CroppedFolder in folder:
 			os.makedirs(CroppedFolder)
 
 BLACK = [0,0,0]
-left_border = [96-16,96+16,96,96]
-right_border = [96+16,96-16,96,96]
-up_border = [96,96,96-16,96+16]
-down_border = [96,96,96+16,96-16]
+left_border = [96-shift,96+shift,96,96]
+right_border = [96+shift,96-shift,96,96]
+up_border = [96,96,96-shift,96+shift]
+down_border = [96,96,96+shift,96-shift]
 size = [64,64,64,64]
 
 
