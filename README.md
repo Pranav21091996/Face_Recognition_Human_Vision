@@ -23,3 +23,6 @@ For Segmentation an extra file needs to be imported "FCN8s_keras" which contains
 
 ## scaled_faces_green_background.py
 To get 32,64,128,200 sized faces on a green background using the ouput of face_segmentation.py. Run the code using command python3 scaled_faces_green_background.py. The output of the code will be four new directories containing the scaled faces of each actor."green.jpg" image is used as background.
+
+## scaled_faces_places365_background.py
+To get 32,64,128,200 sized faces on places365 dataset using the ouput of face_segmentation.py. Run the code using command python3 scaled_faces_places365_background.py. The output of the code will be four new directories containing the scaled faces of each actor. The variable "background" in the code is the name of the directory conating the places 365 dataset. Each of the image in this directory is named in a numerical order(Eg. 0.jpg) so that same background image does not go in both test and train set which may affect the result. 
