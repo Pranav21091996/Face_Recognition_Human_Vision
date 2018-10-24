@@ -35,7 +35,7 @@ for ImageDir in os.listdir(dataSet_directory):
 	test_image_directory4 = testData_directory4+'/'+ImageDir
 	test_image_directory5 = testData_directory5+'/'+ImageDir
 
-	print(image_directory,test_image_directory2,test_image_directory5)
+	print(image_directory,test_image_directory2,test_image_directory3,test_image_directory4,test_image_directory5)
 	print(i)
 	count=0
 	for image in os.listdir(image_directory):
