@@ -11,6 +11,17 @@ import cv2
 import sys
 from utils import *
 
+Dataset1_Input = np.load(sys.argv[1]+'_Input.npy')
+Dataset1_Label = np.load(sys.argv[1]+'_Labels.npy')
+Dataset2_Input = np.load(sys.argv[2]+'_Input.npy')
+Dataset2_Label = np.load(sys.argv[2]+'_Labels.npy')
+Dataset3_Input = np.load(sys.argv[3]+'_Input.npy')
+Dataset3_Label = np.load(sys.argv[3]+'_Labels.npy')
+Dataset4_Input = np.load(sys.argv[4]+'_Input.npy')
+Dataset4_Label = np.load(sys.argv[4]+'_Labels.npy')
+Dataset5_Input = np.load(sys.argv[5]+'_Input.npy')
+Dataset5_Label = np.load(sys.argv[5]+'_Labels.npy')
+
 InputImage = np.load(sys.argv[1]+'_InputImage.npy')
 Labels = np.load(sys.argv[1]+'_Labels.npy')
 test_Data1 = np.load(sys.argv[1]+'_test_Data1.npy')
