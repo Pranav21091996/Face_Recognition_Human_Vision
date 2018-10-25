@@ -24,12 +24,11 @@ Dataset5_Label = np.load(sys.argv[5]+'_Labels.npy')
 
 InputImage = Dataset1_Input[0:100]
 Labels = Dataset1_Label[0:100]
+
 test_Data1 = Dataset1_Input[100:]
 test_label1 = Dataset1_Label[100:]
-
 test_Data2 = Dataset2_Input[100:]
 test_label2 = Dataset2_Label[100:]
-
 test_Data3 = Dataset3_Input[100:]
 test_label3 = Dataset3_Label[100:]
 test_Data4 = Dataset4_Input[100:]
