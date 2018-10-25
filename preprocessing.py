@@ -1,11 +1,11 @@
 from utils import *
 
 
-dataSet_directory = sys.argv[1]
-testData_directory2 =sys.argv[2]
-testData_directory3 =sys.argv[3]
-testData_directory4 = sys.argv[4]
-testData_directory5 = sys.argv[5]
+dataSet_directory1 = sys.argv[1]
+dataSet_directory2 =sys.argv[2]
+dataSet_directory3 =sys.argv[3]
+dataSet_directory4 = sys.argv[4]
+dataSet_directory5 = sys.argv[5]
 
 Dataset1_Input = []
 Dataset1_Label = []
@@ -23,23 +23,22 @@ num_crops = 4
 img_size = 64
 i=0
 
-for ImageDir in os.listdir(dataSet_directory):
+for ImageDir in os.listdir(dataSet_directory1):
 	index=(32,64,128,256)
-	image_directory = dataSet_directory+'/'+ImageDir
+	image_directory1 = dataSet_directory1+'/'+ImageDir
+	image_directory2 = dataSet_directory2+'/'+ImageDir
+	image_directory3 = dataSet_directory3+'/'+ImageDir
+	image_directory4 = dataSet_directory4+'/'+ImageDir
+	image_directory5 = dataSet_directory5+'/'+ImageDir
 
-	test_image_directory2 = testData_directory2+'/'+ImageDir
-	test_image_directory3 = testData_directory3+'/'+ImageDir
-	test_image_directory4 = testData_directory4+'/'+ImageDir
-	test_image_directory5 = testData_directory5+'/'+ImageDir
-
-	print(image_directory,test_image_directory2,test_image_directory3,test_image_directory4,test_image_directory5)
+	print(image_directory1,image_directory2,image_directory3,image_directory4,image_directory5)
 	print(i)
 	
-	for image in os.listdir(image_directory):
+	for image in os.listdir(image_directory1):
 		list = []
 		list1 = []
 		try:
-			im = cv2.imread(image_directory+'/'+image)
+			im = cv2.imread(image_directory1+'/'+image)
 			im = cv2.resize(im, (256,256))
 
 			for crop_index in range(num_crops):
@@ -52,7 +51,7 @@ for ImageDir in os.listdir(dataSet_directory):
 			Dataset1_Input.append(stackedImage)
 			Dataset1_Label.append(i)
 			
-			im2 = cv2.imread(test_image_directory2+'/'+image)
+			im2 = cv2.imread(image_directory2+'/'+image)
 			im2 = cv2.resize(im2, (256,256))
 			for crop_index in range(num_crops):
 				imageToCrop=im2
@@ -65,7 +64,7 @@ for ImageDir in os.listdir(dataSet_directory):
 			Dataset2_Input.append(stackedImage)
 			Dataset2_Label.append(i)
 
-			im3 = cv2.imread(test_image_directory3+'/'+image)
+			im3 = cv2.imread(image_directory3+'/'+image)
 			im3 = cv2.resize(im3, (256,256))
 			for crop_index in range(num_crops):
 				imageToCrop=im3
@@ -78,7 +77,7 @@ for ImageDir in os.listdir(dataSet_directory):
 			Dataset3_Input.append(stackedImage)
 			Dataset3_Label.append(i)
 
-			im4 = cv2.imread(test_image_directory4+'/'+image)
+			im4 = cv2.imread(image_directory4+'/'+image)
 			im4 = cv2.resize(im4, (256,256))
 			for crop_index in range(num_crops):
 				imageToCrop=im4
@@ -91,7 +90,7 @@ for ImageDir in os.listdir(dataSet_directory):
 			Dataset4_Input.append(stackedImage)
 			Dataset4_Label.append(i)
 
-			im5 = cv2.imread(test_image_directory5+'/'+image)
+			im5 = cv2.imread(image_directory5+'/'+image)
 			im5 = cv2.resize(im5, (256,256))
 			for crop_index in range(num_crops):
 				imageToCrop=im5
