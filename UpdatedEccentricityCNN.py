@@ -22,20 +22,20 @@ Dataset4_Label = np.load(sys.argv[4]+'_Labels.npy')
 Dataset5_Input = np.load(sys.argv[5]+'_Input.npy')
 Dataset5_Label = np.load(sys.argv[5]+'_Labels.npy')
 
-InputImage = np.load(sys.argv[1]+'_InputImage.npy')
-Labels = np.load(sys.argv[1]+'_Labels.npy')
-test_Data1 = np.load(sys.argv[1]+'_test_Data1.npy')
-test_label1 = np.load(sys.argv[1]+'_test_label1.npy')
+InputImage = Dataset1_Input[0:100]
+Labels = Dataset1_Label[0:100]
+test_Data1 = Dataset1_Input[100:]
+test_label1 = Dataset1_Label[100:]
 
-test_Data2 = np.load(sys.argv[2]+'_test_Data2.npy')
-test_label2 = np.load(sys.argv[2]+'_test_label2.npy')
+test_Data2 = Dataset2_Input[100:]
+test_label2 = Dataset2_Label[100:]
 
-test_Data3 = np.load(sys.argv[3]+'_test_Data3.npy')
-test_label3 = np.load(sys.argv[3]+'_test_label3.npy')
-test_Data4 = np.load(sys.argv[4]+'_test_Data4.npy')
-test_label4 = np.load(sys.argv[4]+'_test_label4.npy')
-test_Data5 = np.load(sys.argv[5]+'_test_Data5.npy')
-test_label5 = np.load(sys.argv[5]+'_test_label5.npy')
+test_Data3 = Dataset3_Input[100:]
+test_label3 = Dataset3_Label[100:]
+test_Data4 = Dataset4_Input[100:]
+test_label4 = Dataset4_Label[100:]
+test_Data5 = Dataset5_Input[100:]
+test_label5 = Dataset5_Label[100:]
 
 num_crops = 4
 img_size = 64
