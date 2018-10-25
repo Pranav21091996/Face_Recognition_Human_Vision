@@ -7,20 +7,17 @@ testData_directory3 =sys.argv[3]
 testData_directory4 = sys.argv[4]
 testData_directory5 = sys.argv[5]
 
-InputImage = []
-Labels = []
-test_Data1 = []
-test_label1 = []
+Dataset1_Input = []
+Dataset1_Label = []
+Dataset2_Input = []
+Dataset2_Label = []
+Dataset3_Input = []
+Dataset3_Label = []
+Dataset4_Input = []
+Dataset4_Label = []
+Dataset5_Input = []
+Dataset5_Label = []
 
-test_Data2 = []
-test_label2 = []
-
-test_Data3 = []
-test_label3 = []
-test_Data4 = []
-test_label4 = []
-test_Data5 = []
-test_label5 = []
 
 num_crops = 4
 img_size = 64
@@ -37,7 +34,7 @@ for ImageDir in os.listdir(dataSet_directory):
 
 	print(image_directory,test_image_directory2,test_image_directory3,test_image_directory4,test_image_directory5)
 	print(i)
-	count=0
+	
 	for image in os.listdir(image_directory):
 		list = []
 		list1 = []
@@ -52,80 +49,72 @@ for ImageDir in os.listdir(dataSet_directory):
 				list.append(resizedImage)
 			stackedImage=np.vstack((list))
 			stackedImage=stackedImage.reshape([-1,img_size,img_size,3])
-			count+=1
-			if(count<100):
-				InputImage.append(stackedImage)
-				Labels.append(i)
+			Dataset1_Input.append(stackedImage)
+			Dataset1_Label.append(i)
+			
+			im2 = cv2.imread(test_image_directory2+'/'+image)
+			im2 = cv2.resize(im2, (256,256))
+			for crop_index in range(num_crops):
+				imageToCrop=im2
+				resizedImage=crop_center_resize(imageToCrop,index[crop_index],index[crop_index])
+				resizedImage= normalize(resizedImage)
+				list1.append(resizedImage)
+			stackedImage=np.vstack((list1))
+			list1 = []
+			stackedImage=stackedImage.reshape([-1,img_size,img_size,3])
+			Dataset2_Input.append(stackedImage)
+			Dataset2_Label.append(i)
 
-			else:
-				test_Data1.append(stackedImage)
-				test_label1.append(i)
+			im3 = cv2.imread(test_image_directory3+'/'+image)
+			im3 = cv2.resize(im3, (256,256))
+			for crop_index in range(num_crops):
+				imageToCrop=im3
+				resizedImage=crop_center_resize(imageToCrop,index[crop_index],index[crop_index])
+				resizedImage= normalize(resizedImage)
+				list1.append(resizedImage)
+			stackedImage=np.vstack((list1))
+			list1 = []
+			stackedImage=stackedImage.reshape([-1,img_size,img_size,3])
+			Dataset3_Input.append(stackedImage)
+			Dataset3_Label.append(i)
 
-				im2 = cv2.imread(test_image_directory2+'/'+image)
-				im2 = cv2.resize(im2, (256,256))
-				for crop_index in range(num_crops):
-					imageToCrop=im2
-					resizedImage=crop_center_resize(imageToCrop,index[crop_index],index[crop_index])
-					resizedImage= normalize(resizedImage)
-					list1.append(resizedImage)
-				stackedImage=np.vstack((list1))
-				list1 = []
-				stackedImage=stackedImage.reshape([-1,img_size,img_size,3])
-				test_Data2.append(stackedImage)
-				test_label2.append(i)
+			im4 = cv2.imread(test_image_directory4+'/'+image)
+			im4 = cv2.resize(im4, (256,256))
+			for crop_index in range(num_crops):
+				imageToCrop=im4
+				resizedImage=crop_center_resize(imageToCrop,index[crop_index],index[crop_index])
+				resizedImage= normalize(resizedImage)
+				list1.append(resizedImage)
+			stackedImage=np.vstack((list1))
+			list1 = []
+			stackedImage=stackedImage.reshape([-1,img_size,img_size,3])
+			Dataset4_Input.append(stackedImage)
+			Dataset4_Label.append(i)
 
-				im3 = cv2.imread(test_image_directory3+'/'+image)
-				im3 = cv2.resize(im3, (256,256))
-				for crop_index in range(num_crops):
-					imageToCrop=im3
-					resizedImage=crop_center_resize(imageToCrop,index[crop_index],index[crop_index])
-					resizedImage= normalize(resizedImage)
-					list1.append(resizedImage)
-				stackedImage=np.vstack((list1))
-				list1 = []
-				stackedImage=stackedImage.reshape([-1,img_size,img_size,3])
-				test_Data3.append(stackedImage)
-				test_label3.append(i)
-
-				im4 = cv2.imread(test_image_directory4+'/'+image)
-				im4 = cv2.resize(im4, (256,256))
-				for crop_index in range(num_crops):
-					imageToCrop=im4
-					resizedImage=crop_center_resize(imageToCrop,index[crop_index],index[crop_index])
-					resizedImage= normalize(resizedImage)
-					list1.append(resizedImage)
-				stackedImage=np.vstack((list1))
-				list1 = []
-				stackedImage=stackedImage.reshape([-1,img_size,img_size,3])
-				test_Data4.append(stackedImage)
-				test_label4.append(i)
-
-				im5 = cv2.imread(test_image_directory5+'/'+image)
-				im5 = cv2.resize(im5, (256,256))
-				for crop_index in range(num_crops):
-					imageToCrop=im5
-					resizedImage=crop_center_resize(imageToCrop,index[crop_index],index[crop_index])
-					resizedImage= normalize(resizedImage)
-					list1.append(resizedImage)
-				stackedImage=np.vstack((list1))
-				list1 = []
-				stackedImage=stackedImage.reshape([-1,img_size,img_size,3])
-				test_Data5.append(stackedImage)
-				test_label5.append(i)
+			im5 = cv2.imread(test_image_directory5+'/'+image)
+			im5 = cv2.resize(im5, (256,256))
+			for crop_index in range(num_crops):
+				imageToCrop=im5
+				resizedImage=crop_center_resize(imageToCrop,index[crop_index],index[crop_index])
+				resizedImage= normalize(resizedImage)
+				list1.append(resizedImage)
+			stackedImage=np.vstack((list1))
+			list1 = []
+			stackedImage=stackedImage.reshape([-1,img_size,img_size,3])
+			Dataset5_Input.append(stackedImage)
+			Dataset5_Label.append(i)
 
 		except Exception as e:
 			print ("Unexpected error:", str(e))
 	i+=1
 
-np.save(sys.argv[1]+'_InputImage.npy',InputImage)
-np.save(sys.argv[1]+'_Labels.npy',Labels)
-np.save(sys.argv[1]+'_test_Data1.npy',test_Data1)
-np.save(sys.argv[1]+'_test_label1.npy',test_label1)
-np.save(sys.argv[2]+'_test_Data2.npy',test_Data2)
-np.save(sys.argv[2]+'_test_label2.npy',test_label2)
-np.save(sys.argv[3]+'_test_Data3.npy',test_Data3)
-np.save(sys.argv[3]+'_test_label3.npy',test_label3)
-np.save(sys.argv[4]+'_test_Data4.npy',test_Data4)
-np.save(sys.argv[4]+'_test_label4.npy',test_label4)
-np.save(sys.argv[5]+'_test_Data5.npy',test_Data5)
-np.save(sys.argv[5]+'_test_label5.npy',test_label5)
+np.save(sys.argv[1]+'_Input.npy',Dataset1_Input)
+np.save(sys.argv[1]+'_Labels.npy',Dataset1_Label)
+np.save(sys.argv[2]+'_Input.npy',Dataset2_Input)
+np.save(sys.argv[2]+'_Labels.npy',Dataset2_Label)
+np.save(sys.argv[3]+'_Input.npy',Dataset3_Input)
+np.save(sys.argv[3]+'_Labels.npy',Dataset3_Label)
+np.save(sys.argv[4]+'_Input.npy',Dataset4_Input)
+np.save(sys.argv[4]+'_Labels.npy',Dataset4_Label)
+np.save(sys.argv[5]+'_Input.npy',Dataset5_Input)
+np.save(sys.argv[5]+'_Labels.npy',Dataset5_Label)
