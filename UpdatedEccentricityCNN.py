@@ -75,12 +75,13 @@ index_in_epoch = 0
 
 Data = InputImage
 Labels = Labels
-one_hot_labels = one_hot_encode(Labels)
-one_hot_labels_test1 = one_hot_encode(test_label1)
-one_hot_labels_test2 = one_hot_encode(test_label2)
-one_hot_labels_test3 = one_hot_encode(test_label3)
-one_hot_labels_test4 = one_hot_encode(test_label4)
-one_hot_labels_test5 = one_hot_encode(test_label5)
+
+one_hot_labels = one_hot_encode(Labels,max(Dataset1_Label)+1)
+one_hot_labels_test1 = one_hot_encode(test_label1,max(Dataset1_Label)+1)
+one_hot_labels_test2 = one_hot_encode(test_label2,max(Dataset1_Label)+1)
+one_hot_labels_test3 = one_hot_encode(test_label3,max(Dataset1_Label)+1)
+one_hot_labels_test4 = one_hot_encode(test_label4,max(Dataset1_Label)+1)
+one_hot_labels_test5 = one_hot_encode(test_label5,max(Dataset1_Label)+1)
 
 train_Data,train_label = shuffle(Data,one_hot_labels,random_state=20)
 test_Data1,test_label1 = shuffle(test_Data1,one_hot_labels_test1,random_state=20)
