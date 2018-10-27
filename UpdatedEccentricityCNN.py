@@ -70,6 +70,8 @@ i=0
 TRAINING_EPOCHS = 10000
 BATCH_SIZE = 98
 DISPLAY_STEP = 10
+epochs_completed = 0
+index_in_epoch = 0
 
 Data = InputImage
 Labels = Labels
