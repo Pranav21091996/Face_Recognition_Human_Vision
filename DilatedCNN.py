@@ -103,7 +103,7 @@ keep_prob = neural_net_keep_prob_input()
 logits,l2_loss = dilated_conv_net(x, keep_prob)
 Y_pred = tf.nn.softmax(logits)
 cost = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(logits = logits, labels = y)) + l2_loss*beta
-optimizer = tf.train.AdamOptimizer().minimize(cost)
+optimizer = tf.train.AdamOptimizer(1e-4).minimize(cost)
 
 correct_pred = tf.equal(tf.argmax(logits,1), tf.argmax(y,1))
 accuracy = tf.reduce_mean(tf.cast(correct_pred,tf.float32), name = 'accuracy')
