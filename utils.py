@@ -36,7 +36,7 @@ def one_hot_encode(x):
 	x = encoder.transform(x)
 	return x
 
-def next_batch(batch_size,next_batch):
+def next_batch(batch_size,num_examples):
 
 	global train_Data
 	global train_label
