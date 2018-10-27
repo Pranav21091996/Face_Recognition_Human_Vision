@@ -86,8 +86,6 @@ accuracy = tf.reduce_mean(tf.cast(correct_pred,tf.float32), name = 'accuracy')
 
 predict = tf.argmax(Y_pred, 1)
 
-epochs_completed = 0
-index_in_epoch = 0
 num_examples = len(train_Data)
 print(num_examples)
 
