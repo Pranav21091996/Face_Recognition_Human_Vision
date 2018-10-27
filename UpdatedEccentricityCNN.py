@@ -125,7 +125,7 @@ sess.run(init)
 train_accuracies = []
 validation_accuracies = []
 
-DISPLAY_STEP=1
+DISPLAY_STEP=100
 
 for i in range(TRAINING_EPOCHS):
 
