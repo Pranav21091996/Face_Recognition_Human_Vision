@@ -26,9 +26,9 @@ def crop_center_resize(img,cropx,cropy):
     img = img[starty:starty+cropy,startx:startx+cropx,:]
     return cv2.resize(img, (64,64))
 
-def one_hot_encode(x):
+def one_hot_encode(x,num_classes):
 	encoder = preprocessing.LabelBinarizer()
-	list1 = np.arange(0,100)
+	list1 = np.arange(0,num_classes)
 	encoder.fit(list1)
 	x = encoder.transform(x)
 	return x
