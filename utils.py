@@ -10,6 +10,9 @@ import matplotlib.pyplot as plt
 import cv2
 import sys
 
+epochs_completed = 0
+index_in_epoch = 0
+
 def normalize(x):
 
     a = 0.
