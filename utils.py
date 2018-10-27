@@ -10,9 +10,6 @@ import matplotlib.pyplot as plt
 import cv2
 import sys
 
-epochs_completed = 0
-index_in_epoch = 0
-
 def normalize(x):
 
     a = 0.
@@ -35,32 +32,6 @@ def one_hot_encode(x):
 	encoder.fit(list1)
 	x = encoder.transform(x)
 	return x
-
-def next_batch(batch_size,num_examples):
-
-	global train_Data
-	global train_label
-	global index_in_epoch
-	global epochs_completed
-
-	start = index_in_epoch
-	index_in_epoch += batch_size
-
-	# when all trainig data have been already used, it is reorder randomly
-	if index_in_epoch > num_examples:
-		# finished epoch
-		epochs_completed += 1
-		# shuffle the data
-		perm = np.arange(num_examples)
-		np.random.shuffle(perm)
-		train_Data = [train_Data[i] for i in perm]
-		train_label = [train_label[i] for i in perm]
-		# start next epoch
-		start = 0
-		index_in_epoch = batch_size
-		assert batch_size <= num_examples
-	end = index_in_epoch
-	return train_Data[start:end], train_label[start:end]
 
 def neural_net_image_input():
 
