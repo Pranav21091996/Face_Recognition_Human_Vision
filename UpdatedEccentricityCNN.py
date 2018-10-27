@@ -87,8 +87,6 @@ accuracy = tf.reduce_mean(tf.cast(correct_pred,tf.float32), name = 'accuracy')
 predict = tf.argmax(Y_pred, 1)
 
 num_examples = len(train_Data)
-print(num_examples)
-
 
 init = tf.initialize_all_variables()
 sess = tf.InteractiveSession()
@@ -103,7 +101,7 @@ DISPLAY_STEP=1
 for i in range(TRAINING_EPOCHS):
 
     
-    batch_xs, batch_ys = next_batch(BATCH_SIZE)  
+    batch_xs, batch_ys = next_batch(BATCH_SIZE,num_examples)  
           
 
     
