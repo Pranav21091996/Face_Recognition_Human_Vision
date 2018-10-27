@@ -1,5 +1,16 @@
 # Face_Recognition_Human_Vision
 
+## utils.py
+Contains the code for each of the networks and the functions used.
+
+## preprocessing_normal.py
+To create the input data for dilated CNN. Run the code using command python3 preprocessing_normal.py 'dataSet_directory1' 'dataSet_directory2' 'dataSet_directory3' 'dataSet_directory4' 'dataSet_directory5'. Where the arguments after the script names are the names of the directory containing the data on which training and testing is done.The output of the code will be the processed image and their corresponding labels in the form of .npy files for each of the given directories. Before running DilatedCNN.py , preprocessing_normal.py needs to be run if .npy files for the corresponding directories does not exist.
+
+## DilatedCNN.py
+To get the top 5 test accuracy for the dataset specified using Dilated CNN based network.Run the code using command (specify the GPU) python3 DilatedCNN.py 'train_data' 'test_data1' 'test_data2' 'test_data3' 'test_data4'. Where the arguments after the script names are the names of the directory containing the training data followed by four different test data directory name. "train_data" contains the directory on which the model is trained leaving apart 20% as test data."test_data1","test_data2","test_data3","test_data4" contains differently scaled and shifted  version of the faces on which the trained model is tested. Run preprocessing_normal.py if .npy files for the corresponding directory does not exist.
+
+The final result is the top 5 test accuracy for each of the different version of faces.
+
 ## preprocessing.py
 To create the input data for the eccentricity model. Run the code using command python3 preprocessing.py 'dataSet_directory1' 'dataSet_directory2' 'dataSet_directory3' 'dataSet_directory4' 'dataSet_directory5'. Where the arguments after the script names are the names of the directory containing the data on which training and testing is done.The output of the code will be the processed image and their corresponding labels in the form of .npy files for each of the given directories. Before running UpdatedEccentricityCNN.py , preprocessing.py needs to be run if .npy files for the corresponding directories does not exist.
 
