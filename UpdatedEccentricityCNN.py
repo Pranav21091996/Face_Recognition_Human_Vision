@@ -22,19 +22,20 @@ Dataset4_Label = np.load(sys.argv[4]+'_Labels.npy')
 Dataset5_Input = np.load(sys.argv[5]+'_Input.npy')
 Dataset5_Label = np.load(sys.argv[5]+'_Labels.npy')
 
-InputImage = Dataset1_Input[0:95]
-Labels = Dataset1_Label[0:95]
-
-test_Data1 = Dataset1_Input[95:]
-test_label1 = Dataset1_Label[95:]
-test_Data2 = Dataset2_Input[95:]
-test_label2 = Dataset2_Label[95:]
-test_Data3 = Dataset3_Input[95:]
-test_label3 = Dataset3_Label[95:]
-test_Data4 = Dataset4_Input[95:]
-test_label4 = Dataset4_Label[95:]
-test_Data5 = Dataset5_Input[95:]
-test_label5 = Dataset5_Label[95:]
+perm = np.arange(len(Dataset1_Input))
+np.random.shuffle(perm)
+InputImage = [Dataset1_Input[i] for i in perm[0:int(0.8*len(Dataset1_Input))]] 
+Labels = [Dataset1_Label[i] for i in perm[0:int(0.8*len(Dataset1_Input))]] 
+test_Data1 = [Dataset1_Input[i] for i in perm[int(0.8*len(Dataset1_Input)):]] 
+test_label1 = [Dataset1_Label[i] for i in perm[int(0.8*len(Dataset1_Input)):]] 
+test_Data2 = [Dataset2_Input[i] for i in perm[int(0.8*len(Dataset2_Input)):]] 
+test_label2 = [Dataset2_Label[i] for i in perm[int(0.8*len(Dataset2_Input)):]]
+test_Data3 = [Dataset3_Input[i] for i in perm[int(0.8*len(Dataset3_Input)):]] 
+test_label3 = [Dataset3_Label[i] for i in perm[int(0.8*len(Dataset3_Input)):]]
+test_Data4 = [Dataset4_Input[i] for i in perm[int(0.8*len(Dataset4_Input)):]] 
+test_label4 = [Dataset4_Label[i] for i in perm[int(0.8*len(Dataset4_Input)):]]
+test_Data5 = [Dataset5_Input[i] for i in perm[int(0.8*len(Dataset5_Input)):]] 
+test_label5 = [Dataset5_Label[i] for i in perm[int(0.8*len(Dataset5_Input)):]]
 
 num_crops = 4
 img_size = 64
