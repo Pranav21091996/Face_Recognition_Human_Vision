@@ -147,16 +147,16 @@ for i in range(TRAINING_EPOCHS):
             train_accuracies.append(train_accuracy)
          if i%(DISPLAY_STEP*10) == 0 and i:
             DISPLAY_STEP *=10
-    validation_accuracy = accuracy.eval(feed_dict={ x: test_Data1[0:BATCH_SIZE],y: test_label1[0:BATCH_SIZE],keep_prob: 0.5})
-    print('validation_accuracy 1 => %.2f for step %d'%(validation_accuracy, i))
-    validation_accuracy = accuracy.eval(feed_dict={ x: test_Data2[0:BATCH_SIZE],y: test_label2[0:BATCH_SIZE],keep_prob: 0.5})
-    print('validation_accuracy 2 => %.2f for step %d'%(validation_accuracy, i))
-    validation_accuracy = accuracy.eval(feed_dict={ x: test_Data3[0:BATCH_SIZE],y: test_label3[0:BATCH_SIZE],keep_prob: 0.5})
-    print('validation_accuracy 3 => %.2f for step %d'%(validation_accuracy, i))
-    validation_accuracy = accuracy.eval(feed_dict={ x: test_Data4[0:BATCH_SIZE],y: test_label4[0:BATCH_SIZE],keep_prob: 0.5})
-    print('validation_accuracy 4 => %.2f for step %d'%(validation_accuracy, i))
-    validation_accuracy = accuracy.eval(feed_dict={ x: test_Data5[0:BATCH_SIZE],y: test_label5[0:BATCH_SIZE],keep_prob: 0.5})
-    print('validation_accuracy 5 => %.2f for step %d'%(validation_accuracy, i))
+         validation_accuracy = accuracy.eval(feed_dict={ x: test_Data1[0:BATCH_SIZE],y: test_label1[0:BATCH_SIZE],keep_prob: 0.5})
+         print('validation_accuracy 1 => %.2f for step %d'%(validation_accuracy, i))
+         validation_accuracy = accuracy.eval(feed_dict={ x: test_Data2[0:BATCH_SIZE],y: test_label2[0:BATCH_SIZE],keep_prob: 0.5})
+         print('validation_accuracy 2 => %.2f for step %d'%(validation_accuracy, i))
+         validation_accuracy = accuracy.eval(feed_dict={ x: test_Data3[0:BATCH_SIZE],y: test_label3[0:BATCH_SIZE],keep_prob: 0.5})
+         print('validation_accuracy 3 => %.2f for step %d'%(validation_accuracy, i))
+         validation_accuracy = accuracy.eval(feed_dict={ x: test_Data4[0:BATCH_SIZE],y: test_label4[0:BATCH_SIZE],keep_prob: 0.5})
+         print('validation_accuracy 4 => %.2f for step %d'%(validation_accuracy, i))
+         validation_accuracy = accuracy.eval(feed_dict={ x: test_Data5[0:BATCH_SIZE],y: test_label5[0:BATCH_SIZE],keep_prob: 0.5})
+         print('validation_accuracy 5 => %.2f for step %d'%(validation_accuracy, i))
     
     sess.run(optimizer, feed_dict={x: batch_xs, y: batch_ys,keep_prob: 0.5})
 
@@ -247,7 +247,7 @@ for infile,outfile in zip(prediction_file,prediction_outfile):
 	fout.close()
 
 
-suffixes = {0:dataSet_directory,1:testData_directory2,2:testData_directory3,3:testData_directory4,4:testData_directory5}
+suffixes = {0:sys.argv[1],1:sys.argv[2],2:sys.argv[3],3:sys.argv[4],4:sys.argv[5]}
 k=0
 for outfile in prediction_outfile:
 	
