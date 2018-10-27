@@ -11,6 +11,32 @@ import cv2
 import sys
 from utils import *
 
+def next_batch(batch_size):
+
+	global train_Data
+	global train_label
+	global index_in_epoch
+	global epochs_completed
+
+	start = index_in_epoch
+	index_in_epoch += batch_size
+
+	# when all trainig data have been already used, it is reorder randomly
+	if index_in_epoch > num_examples:
+		# finished epoch
+		epochs_completed += 1
+		# shuffle the data
+		perm = np.arange(num_examples)
+		np.random.shuffle(perm)
+		train_Data = [train_Data[i] for i in perm]
+		train_label = [train_label[i] for i in perm]
+		# start next epoch
+		start = 0
+		index_in_epoch = batch_size
+		assert batch_size <= num_examples
+	end = index_in_epoch
+	return train_Data[start:end], train_label[start:end]
+
 Dataset1_Input = np.load(sys.argv[1]+'_Input.npy')
 Dataset1_Label = np.load(sys.argv[1]+'_Labels.npy')
 Dataset2_Input = np.load(sys.argv[2]+'_Input.npy')
@@ -101,7 +127,7 @@ DISPLAY_STEP=1
 for i in range(TRAINING_EPOCHS):
 
     
-    batch_xs, batch_ys = next_batch(BATCH_SIZE,num_examples)  
+    batch_xs, batch_ys = next_batch(BATCH_SIZE)  
           
 
     
