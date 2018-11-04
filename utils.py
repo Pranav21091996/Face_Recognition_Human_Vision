@@ -160,77 +160,86 @@ def conv_net(x, keep_prob):
 	return out
 
 def weight_variable(shape):
-    initial = tf.truncated_normal(shape,stddev=0.1)
-    return tf.Variable(initial)
+    initial = tf.ones(shape,tf.float32)
+    #initial = tf.truncated_normal(shape,stddev=0.1)
+    return initial
+    #return tf.Variable(initial)
 
 def bias_variable(shape):
     initial = tf.constant(0.1,shape=shape)
-    return tf.Variable(initial)
+    return initial
+    #return tf.Variable(initial)
 
 def dilated_conv_net(x, keep_prob):
-  
-    #first convolutional layer,kernal size 3*3,dilation rate=1, 3 input channel,32 output channel
-    W_conv1 = weight_variable([3,3,3,32])
-    b_conv1 = bias_variable([32])
+	crop32 = tf.image.resize_images(tf.reshape(tf.image.central_crop(x, scale[0]),[-1,32,32,3]),(64,64))
+	crop64 = tf.image.resize_images(tf.reshape(tf.image.central_crop(x, scale[1]),[-1,64,64,3]),(64,64))
+	crop128 = tf.image.resize_images(tf.reshape(tf.image.central_crop(x, scale[2]),[-1,128,128,3]),(64,64))
+	crop256 = tf.image.resize_images(tf.reshape(tf.image.central_crop(x, scale[3]),[-1,256,256,3]),(64,64))
+	
+	W_conv1 = weight_variable([3,3,3,3])
+	b_conv1 = bias_variable([3])
+	c_dilat1 =tf.image.resize_images(tf.nn.relu(tf.nn.conv2d(crop32, W_conv1, strides=[1,1,1,1],padding='SAME',
+	   dilations=[1, 1, 1, 1], name='dilation1')+b_conv1),(64,64))
+	
+	W_conv2 = weight_variable([3,3,3,3])
+	b_conv2 = bias_variable([3])
+	c_dilat2 =tf.image.resize_images(tf.nn.relu(tf.nn.conv2d(crop64, W_conv2, strides=[1,1,1,1],padding='SAME',
+	   dilations=[1, 2, 2, 1], name='dilation2')+b_conv2),(64,64))
+	
+	W_conv3 = weight_variable([3,3,3,3])
+	b_conv3 = bias_variable([3])
+	c_dilat3 =tf.image.resize_images(tf.nn.relu(tf.nn.conv2d(crop128, W_conv3, strides=[1,1,1,1],padding='SAME',
+	   dilations=[1, 4, 4, 1], name='dilation3')+b_conv3),(64,64))
+	W_conv4 = weight_variable([3,3,3,3])
+	b_conv4 = bias_variable([3])
+	c_dilat4 =tf.image.resize_images(tf.nn.relu(tf.nn.conv2d(crop256, W_conv4, strides=[1,1,1,1],padding='SAME',
+	   dilations=[1, 8, 8, 1], name='dilation4')+b_conv4),(64,64))
+	
+	input_x = tf.stack([c_dilat1,c_dilat2,c_dilat3,c_dilat4],axis=1)
+	
+	x_tensor = input_x
+	conv_ksize = (5,5)
+	conv_strides = (1,1)
+	pool_ksize = (3,3)
+	pool_strides = (1,1)
 
-    c_dilat1 =tf.nn.conv2d(x, W_conv1, strides=[1,1,1,1],padding='SAME',
-       dilations=[1, 1, 1, 1], name='dilation1')
-    h_conv1 = tf.nn.relu(c_dilat1+b_conv1)
+	flag = 0
+	conv_num_outputs = 100
+	in_channels = 3
+	conv = conv3d(x_tensor,conv_num_outputs,conv_ksize,conv_strides,pool_ksize,pool_strides,in_channels)
+	conv = maxpool3d(conv,pool_ksize,pool_strides,flag)
 
-    #second convolutional layer
-    W_conv2 = weight_variable([3,3,32,32])
-    b_conv2 = bias_variable([32])
-    c_dilat2 = tf.nn.conv2d(h_conv1, W_conv2, strides=[1,1,1,1], padding= 'SAME',
-     dilations=[1, 1, 1, 1], name= 'dilation2')
-    h_conv2 = tf.nn.relu(c_dilat2+b_conv2)
+	conv_num_outputs = 100
+	in_channels = 100
+	conv2 = conv3d(conv,conv_num_outputs,conv_ksize,conv_strides,pool_ksize,pool_strides,in_channels)
+	conv2 = maxpool3d(conv2,pool_ksize,pool_strides,flag)
 
-    #third convolutional layer
-    W_conv3 = weight_variable([3,3,32,32])
-    b_conv3 = bias_variable([32])
-    c_dilat3 = tf.nn.conv2d(h_conv2, W_conv3, strides= [1,1,1,1], padding= 'SAME',
-     dilations= [1, 2, 2, 1], name= 'dilation3')
-    h_conv3 = tf.nn.relu(c_dilat3 + b_conv3)
+	conv_num_outputs = 100
+	in_channels = 100
+	conv3 = conv3d(conv2,conv_num_outputs,conv_ksize,conv_strides,pool_ksize,pool_strides,in_channels)
+	conv3 = maxpool3d(conv3,pool_ksize,pool_strides,flag)
 
-    #fourth convolutional layer
-    W_conv4 = weight_variable([3,3,32,32])
-    b_conv4 = bias_variable([32])
-    c_dilat4 = tf.nn.conv2d(h_conv3, W_conv4, strides= [1,1,1,1], padding= 'SAME',
-     dilations= [1, 4, 4, 1], name='dilation4')
-    h_conv4 = tf.nn.relu(c_dilat4 + b_conv4)
-  
-  #fifth convolutional layer
-    W_conv5 = weight_variable([3,3,32,32])
-    b_conv5 = bias_variable([32])
-    c_dilat5 = tf.nn.conv2d(h_conv4, W_conv5, strides= [1,1,1,1], padding= 'SAME',
-     dilations= [1, 8, 8, 1], name='dilation5')
-    h_conv5 = tf.nn.relu(c_dilat5 + b_conv5)
-  
-  #sixth convolutional layer
-    W_conv6 = weight_variable([3,3,32,32])
-    b_conv6 = bias_variable([32])
-    c_dilat6 = tf.nn.conv2d(h_conv5, W_conv6, strides= [1,1,1,1], padding= 'SAME',
-     dilations= [1, 16, 16, 1], name='dilation6')
-    h_conv6 = tf.nn.relu(c_dilat6 + b_conv6)
+	conv_num_outputs = 100
+	in_channels = 100
+	conv4 = conv3d(conv3,conv_num_outputs,conv_ksize,conv_strides,pool_ksize,pool_strides,in_channels)
+	conv4 = maxpool3d(conv4,pool_ksize,pool_strides,flag)
 
-    #seventh convolutional layer
-    W_conv7 = weight_variable([3,3,32,32])
-    b_conv7 = bias_variable([32])
-    c_dilat7 = tf.nn.conv2d(h_conv6, W_conv7, strides= [1,1,1,1], padding= 'SAME',
-     dilations= [1, 1, 1, 1], name='dilation7')
-    h_conv7 = tf.nn.relu(c_dilat7 + b_conv7)
+	conv_num_outputs = 128
+	in_channels = 100
+	flag = 1
+	conv5 = conv3d(conv4,conv_num_outputs,conv_ksize,conv_strides,pool_ksize,pool_strides,in_channels)
+	conv5 = maxpool3d(conv5,pool_ksize,pool_strides,flag)
+	flag = 2
+	conv5 = maxpool3d(conv5,pool_ksize,pool_strides,flag)
 
-    #1*1 layer
-    W_conv8 = weight_variable([1,1,32,10])
-    b_conv8 = bias_variable([10])
-    c_dilat8 = tf.nn.conv2d(h_conv7, W_conv8,strides= [1,1,1,1], padding= 'SAME',
-     dilations= [1,1,1,1], name= 'dilation8')
-    flat = flatten(c_dilat8)
 
-    fc1 = fully_conn(flat,512)
-    fc1 = tf.nn.dropout(fc1,keep_prob)
-    
-    out = output(fc1, 10)	
-    l2_loss = tf.nn.l2_loss(W_conv1)+tf.nn.l2_loss(W_conv2)+tf.nn.l2_loss(W_conv3)+tf.nn.l2_loss(W_conv4)+tf.nn.l2_loss(W_conv5)+tf.nn.l2_loss(W_conv6)+tf.nn.l2_loss(W_conv7)+tf.nn.l2_loss(W_conv8)
-    return out,l2_loss
+	flat = flatten(conv5)
+
+	fc1 = fully_conn(flat,512)
+	fc1 = tf.nn.dropout(fc1,keep_prob)
+
+	logits = output(fc1, 10)
+
+    	return logits
 
 
