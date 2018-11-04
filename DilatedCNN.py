@@ -95,7 +95,7 @@ print("size of the test data5", len(test_Data5))
 
 VALIDATION_SIZE = len(test_Data1)
 
-x = tf.placeholder(tf.float32, shape = [None,64,64,3], name = 'x')
+x = tf.placeholder(tf.float32, shape = [None,256,256,3], name = 'x')
 y = tf.placeholder(tf.float32, shape = [None,10], name = 'y')
 keep_prob = neural_net_keep_prob_input()
 
