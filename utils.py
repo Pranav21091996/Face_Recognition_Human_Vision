@@ -171,10 +171,10 @@ def bias_variable(shape):
     #return tf.Variable(initial)
 
 def dilated_conv_net(x, keep_prob):
-	crop32 = tf.image.resize_images(tf.reshape(tf.image.central_crop(x, scale[0]),[-1,32,32,3]),(64,64))
-	crop64 = tf.image.resize_images(tf.reshape(tf.image.central_crop(x, scale[1]),[-1,64,64,3]),(64,64))
-	crop128 = tf.image.resize_images(tf.reshape(tf.image.central_crop(x, scale[2]),[-1,128,128,3]),(64,64))
-	crop256 = tf.image.resize_images(tf.reshape(tf.image.central_crop(x, scale[3]),[-1,256,256,3]),(64,64))
+	crop32 = tf.reshape(tf.image.central_crop(x, scale[0]),[-1,32,32,3])
+	crop64 = tf.reshape(tf.image.central_crop(x, scale[1]),[-1,64,64,3])
+	crop128 = tf.reshape(tf.image.central_crop(x, scale[2]),[-1,128,128,3])
+	crop256 = tf.reshape(tf.image.central_crop(x, scale[3]),[-1,256,256,3])
 	
 	W_conv1 = weight_variable([3,3,3,3])
 	b_conv1 = bias_variable([3])
