@@ -35,32 +35,32 @@ for ImageDir in os.listdir(dataSet_directory1):
 		list = []
 		list1 = []
 		try:
-			im = cv2.imread(image_directory1+'/'+image)
-			im = cv2.resize(im, (64,64))
+			im = cv2.imread(image_directory3+'/'+image)
+			im = cv2.resize(im, (256,256))
 			im= normalize(im)
-			Dataset1_Input.append(im)
-			Dataset1_Label.append(i)
+			Dataset3_Input.append(im)
+			Dataset3_Label.append(i)
 			
 			im2 = cv2.imread(image_directory2+'/'+image)
-			im2 = cv2.resize(im2, (64,64))
+			im2 = cv2.resize(im2, (256,256))
 			im2 = normalize(im2)
 			Dataset2_Input.append(im2)
 			Dataset2_Label.append(i)
 
 			im3 = cv2.imread(image_directory3+'/'+image)
-			im3 = cv2.resize(im3, (64,64))
+			im3 = cv2.resize(im3, (256,256))
 			im3 = normalize(im3)
 			Dataset3_Input.append(im3)
 			Dataset3_Label.append(i)
 
 			im4 = cv2.imread(image_directory4+'/'+image)
-			im4 = cv2.resize(im4, (64,64))
+			im4 = cv2.resize(im4, (256,256))
 			im4 = normalize(im4)
 			Dataset4_Input.append(im4)
 			Dataset4_Label.append(i)
 
 			im5 = cv2.imread(image_directory5+'/'+image)
-			im5 = cv2.resize(im5, (64,64))
+			im5 = cv2.resize(im5, (256,256))
 			im5 = normalize(im5)
 			Dataset5_Input.append(im5)
 			Dataset5_Label.append(i)
@@ -68,6 +68,7 @@ for ImageDir in os.listdir(dataSet_directory1):
 		except Exception as e:
 			print ("Unexpected error:", str(e))
 	i+=1
+
 
 np.save(sys.argv[1]+'_Normal_Input.npy',Dataset1_Input)
 np.save(sys.argv[1]+'_Normal_Labels.npy',Dataset1_Label)
