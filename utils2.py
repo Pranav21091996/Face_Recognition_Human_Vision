@@ -105,7 +105,7 @@ def tf_compute_transformation_matrix_inverse(bbox, shape=16., img_height=64):
     return transformation_matrix  
   
 def sample_gen_label(mb_size):
-    labels = np.random.multinomial(1, 10*[0.1], size=mb_size)
+    labels = np.random.multinomial(1, 200*[1/200], size=mb_size)
     return labels.astype(np.float32)
 
 
