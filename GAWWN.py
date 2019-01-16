@@ -77,7 +77,7 @@ def discriminate(image_input, label, bounding_box,reuse):
         if reuse:
             scope.reuse_variables()
         input = conv_cond_concat(image_input, label)
-        d_x_conv_0 = conv2d(input, features=[3, 32],kernel=[5,5], name="d_conv_layer_1")
+        d_x_conv_0 = conv2d(input, features=[203, 32],kernel=[5,5], name="d_conv_layer_1")
         d_x_conv_0 = lrelu(d_x_conv_0)
       
         d_x_conv_1 = conv2d(d_x_conv_0, features=[32, 64], kernel=[5,5],name="d_conv_layer_2")
@@ -132,7 +132,7 @@ def sampler(noise_input, label, bounding_box):
         scope.reuse_variables()
     
         input = tf.concat((noise_input, label), axis=1)
-        g_dense_0 = dense(input, shape=[128, 2048], name="g_dense_1")
+        g_dense_0 = dense(input, shape=[328, 2048], name="g_dense_1")
         g_dense_0 = batch_norm(g_dense_0, isTrain=False, name="g_batch_norm_0")
         g_dense_0 = tf.nn.relu(g_dense_0)
 
@@ -186,7 +186,7 @@ def sampler(noise_input, label, bounding_box):
 def generate(noise_input, label, bounding_box):
     with tf.variable_scope("g_net") as scope:
         input = tf.concat((noise_input, label), axis=1)
-        g_dense_0 = dense(input, shape=[128, 2048], name="g_dense_1")
+        g_dense_0 = dense(input, shape=[328, 2048], name="g_dense_1")
         g_dense_0 = batch_norm(g_dense_0, isTrain=True, name="g_batch_norm_0")
         g_dense_0 = tf.nn.relu(g_dense_0)
 
@@ -244,7 +244,7 @@ X = tf.placeholder(tf.float32, shape=[None,64,64,3], name='image')
 b = tf.placeholder(tf.float32, shape=[None,4], name='box')
 
 z = tf.placeholder(tf.float32, shape=[None,Z_DIM], name='z')
-Y_ = tf.placeholder(tf.float32, shape=[None,10], name='label_gen')
+Y_ = tf.placeholder(tf.float32, shape=[None,LABEL_DIM], name='label_gen')
 b_ = tf.placeholder(tf.float32, shape=[None,4], name='box_gen')
 
 fake_images = generate(noise_input=z, label=Y, bounding_box=b)
