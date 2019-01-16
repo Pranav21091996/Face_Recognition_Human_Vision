@@ -187,7 +187,7 @@ def generate(noise_input, label, bounding_box):
     with tf.variable_scope("g_net") as scope:
         input = tf.concat((noise_input, label), axis=1)
         g_dense_0 = dense(input, shape=[128, 2048], name="g_dense_1")
-        g_dense_0 = batch_norm(g_dense_0, isTrain=False, name="g_batch_norm_0")
+        g_dense_0 = batch_norm(g_dense_0, isTrain=True, name="g_batch_norm_0")
         g_dense_0 = tf.nn.relu(g_dense_0)
 
         g_dense_0 = tf.reshape(g_dense_0, [-1, 4, 4, 128])
